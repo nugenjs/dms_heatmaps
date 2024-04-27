@@ -12,7 +12,7 @@ cv2.startWindowThread()
 
 
 
-image = cv2.imread("./frame_Laser1.jpg") # is just a numpy array
+image = cv2.imread("images/Laser1/2024-03-16-16-55-56_frame_Laser1.jpg") # is just a numpy array
 # image = cv2.resize(image, (1280, 720))
 # image = cv2.resize(image, (1920, 1080))
 (h, w, d) = image.shape

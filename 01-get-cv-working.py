@@ -4,7 +4,7 @@ import cv2
 print("Hello, OpenCV!")
 print(cv2.__version__)
 
-image = cv2.imread("./frame_Laser1.jpg") # is just a numpy array
+image = cv2.imread("images/Laser1/2024-03-16-16-55-56_frame_Laser1.jpg") # is just a numpy array
 (h, w, d) = image.shape
 
 print("width={}, height={}, depth={}".format(w, h, d))

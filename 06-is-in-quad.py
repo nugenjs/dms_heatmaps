@@ -2,7 +2,7 @@
 import cv2
 import numpy as np
 
-image = cv2.imread('frame_Laser1.jpg')
+image = cv2.imread('images/Laser1/2024-03-16-16-55-56_frame_Laser1.jpg')
 
 
 # Draw areas of interest on the image

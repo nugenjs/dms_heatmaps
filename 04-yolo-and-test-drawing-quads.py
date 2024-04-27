@@ -2,6 +2,8 @@ from ultralytics import YOLO
 import cv2
 import numpy as np
 
+# https://opencv-tutorial.readthedocs.io/en/latest/yolo/yolo.html
+
 import torch #for faster processing
 # This code attempts to check whether the MPS (Memory Pooling System) is 
 # available in the PyTorch backend. MPS is a feature provided by PyTorch
@@ -10,7 +12,7 @@ print(torch.backends.mps.is_available())
 
 # Load the model and the image
 model = YOLO("yolov8m.pt")
-image = cv2.imread('frame_Laser1.jpg')
+image = cv2.imread('images/Laser1/2024-03-16-16-55-56_frame_Laser1.jpg')
 # results = model(image, device="mps") # since mpx is available, we can use it to speed up the processing # Not working for me
 
 # Draw areas of interest

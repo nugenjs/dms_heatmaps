@@ -11,7 +11,7 @@ print(torch.backends.mps.is_available())
 
 model = YOLO("yolov8m.pt")
 
-imagesDir = './woodshop3'
+imagesDir = './images/WoodShop3'
 
 files = os.listdir(imagesDir)
 filesSorted = sorted(files)

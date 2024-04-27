@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
+# https://medium.com/@haidarlina4/image-gradient-concept-and-application-31c6faef45dd
+
 def compute_gradients(image):
   # padded_image = np.pad(image, ((1,1), (1,1)), mode='edge')
 
@@ -24,7 +26,7 @@ def compute_gradients(image):
 
   return gradient_x, gradient_y
 
-image = cv2.imread('frame_MetalShop2.jpg', cv2.IMREAD_GRAYSCALE)
+image = cv2.imread('images/Laser1/2024-03-16-16-55-56_frame_Laser1.jpg', cv2.IMREAD_GRAYSCALE)
 
 # gradient_x = cv2.Sobel(image, cv2.CV_64F, 1, 0, ksize=3)
 # gradient_y = cv2.Sobel(image, cv2.CV_64F, 0, 1, ksize=3)
