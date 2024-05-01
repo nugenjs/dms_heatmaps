@@ -42,7 +42,7 @@ while i < len(filesSorted):
 
     lineStartingPoint2 = (lineStartX, lineStartY)   
     lineEndingPoint2 = (lineEndX, lineEndY)
-    cv2.line(image, lineStartingPoint2, lineEndingPoint2, (255, 0, 0), 5)
+    cv2.arrowedLine(image, lineStartingPoint2, lineEndingPoint2, (255, 0, 0), 5, cv2.FILLED, 0, 0.03)
 
 
     # find the slope intercept form of the line

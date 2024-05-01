@@ -1,4 +1,5 @@
 
+import pprint
 from ultralytics import YOLO
 import cv2
 import numpy as np
@@ -10,6 +11,18 @@ from surrealdb import Surreal
 model = YOLO("yolov8m.pt")
 imageGroup = 'Laser1'
 imagesDir = f'images/{imageGroup}/'
+
+imageGroup_laser1 = {
+    'imageGroup': imageGroup,
+    'areas': [
+        {
+            'areaName': 'laser1',
+        #                   tl          tr          bl           br
+            'areaCoords': [[600, 380], [190, 430], [420, 1400], [1800, 1350]],
+            'processed': {}
+        } 
+    ]
+}
 
 
 async def process():
@@ -23,18 +36,14 @@ async def process():
     await db.signin({"user": "root", "pass": "root"})
     await db.use("test", "test")
 
-    # await db.create("people", {
-    #     'imageGroup': imageGroup,
-    #     'areas': [
-    #         {
-    #             'areaName': 'laser',
-    #             'areaCoords': [[600, 380], [190, 430], [420, 1400], [1800, 1350]],
-    #             'processed': []
-    #         } 
-    #     ]
-    # })
+    # add the laser1 metadata and structure to the database
+    # await db.create(dbTable, imageGroup_laser1)
+
+    # await db.close()
+    # exit()
 
 
+    # iterate through each image in laser1
     files = os.listdir(imagesDir)
     filesSorted = sorted(files)
 
@@ -47,9 +56,8 @@ async def process():
         result = results[0]
 
         # Draw areas of interest on the image
-        #                   tl              tr          bl             br
-        laserArea = [[600, 380], [190, 430], [420, 1400], [1800, 1350]]
-        points = np.array([[600, 380], [190, 430], [420, 1400], [1800, 1350]], np.int32)
+        laserArea = imageGroup_laser1["areas"][0]["areaCoords"]
+        points = np.array(laserArea, np.int32)
         points = points.reshape((-1, 1, 2))
         cv2.polylines(image, [points], isClosed=True, color=(0, 255, 0), thickness=5)
 
@@ -74,10 +82,7 @@ async def process():
         bboxes = np.array(result.boxes.xyxy.cpu(), dtype='int')
         classes = np.array(result.boxes.cls.cpu(), dtype='int')
         fileDatetime = file.split("_", 1)[0]
-        dbRecord = {
-            "datetime": fileDatetime,
-            "soiLocation": []
-        }
+        soiLocations = []
 
         for cls, bbox in zip(classes, bboxes):
             # only humans
@@ -116,18 +121,26 @@ async def process():
                 linePercentageFromStart = (normalizedIntercept - normalizedStart) / (normalizedEnd - normalizedStart) * 100
                 print('linePercentageFromStart', linePercentageFromStart)
 
-                dbRecord["soiLocation"].append(linePercentageFromStart)
+                soiLocations.append(linePercentageFromStart)
 
         # don't create if already exists
-        currentRecord = await db.query("select * from " + dbTable + " where datetime = '" + fileDatetime + "'")
-        isExist = len(currentRecord[0]['result']) == 0
-
+        # imageGroup_laser1 = {
+        #     'imageGroup': imageGroup,
+        #     'areas': [
+        #         {
+        #             'areaName': 'laser1',
+        #         #                   tl          tr          bl           br
+        #             'areaCoords': [[600, 380], [190, 430], [420, 1400], [1800, 1350]],
+        #             'processed': []
+        #         } 
+        #     ]
+        # }
+        isExist = fileDatetime not in imageGroup_laser1['areas'][0]['processed']
         if (isExist):
-            await db.create(
-                dbTable,
-                dbRecord
-            )
-            print(fileDatetime + 'has been created')
+            imageGroup_laser1['areas'][0]['processed'][fileDatetime] = {
+                'soiLocations': soiLocations
+            }
+            print(fileDatetime + 'has been added')
 
 
         # show a smaller image
@@ -138,6 +151,16 @@ async def process():
         print("file name is " + file)
 
         i = i + 1
+
+
+        print(i-1, ' imageGroup_laser1')
+        pprint.pprint(imageGroup_laser1)
+
+
+        if (i >= 20):
+            # await db.close()
+            # exit()
+            break
 
         # key = cv2.waitKey(0)
         # if key == 2:
@@ -159,6 +182,11 @@ async def process():
         #     await db.close()
         #     print('Key pressed:', key)
         #     exit()
+
+    print('final imageGroup_laser1')
+    pprint.pprint(imageGroup_laser1)
+
+    await db.create(dbTable, imageGroup_laser1)
 
     await db.close()
 

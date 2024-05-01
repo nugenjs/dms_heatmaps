@@ -30,7 +30,8 @@ lineEndY = int((laserArea[2][1]+laserArea[3][1]) / 2)
 
 lineStartingPoint2 = (lineStartX, lineStartY)   
 lineEndingPoint2 = (lineEndX, lineEndY)
-cv2.line(image, lineStartingPoint2, lineEndingPoint2, (255, 0, 0), 5)
+# cv2.line(image, lineStartingPoint2, lineEndingPoint2, (255, 0, 0), 5)
+cv2.arrowedLine(image, lineStartingPoint2, lineEndingPoint2, (255, 0, 0), 5, cv2.FILLED, 0, 0.03)
 
 
 # find the slope intercept form of the line

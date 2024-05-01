@@ -25,6 +25,9 @@ async def main():
             "marketing": False,
             "tags": ["Awesome"]
         }))
+        print(await db.update("person", {
+            "dsafsdf":"asdfasdfsadf"
+        }))
         await db.create("person", {
             "hi": "world",
             "asdf": [

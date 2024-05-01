@@ -30,7 +30,8 @@
 
 # Others
 Install SurrealDB  
-`brew install surrealdb/tap/surreal`
+`brew install surrealdb/tap/surreal`  
+`surreal start memory -A --auth --user root --pass root`
 
 
 
