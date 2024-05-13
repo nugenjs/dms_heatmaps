@@ -1,4 +1,4 @@
-
+# This calculates the perpendicular line of a given line and a point
 def calcPerpendicularSlopeLineIntercept(lineM, lineB, pointX, pointY):
   # the perpendicular slope is the negative reciprocal of original m
   mPerpendicular = -1 / lineM

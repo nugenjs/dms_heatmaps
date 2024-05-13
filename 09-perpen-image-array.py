@@ -5,12 +5,11 @@ import numpy as np
 from utils.perpendicular import calcPerpendicularSlopeLineIntercept
 import os
 
+from image_contants import laser1_areas
+
 model = YOLO("yolov8m.pt")
 imagesDir = 'images/Laser1/'
 image = cv2.imread('images/Laser1/2024-03-16-16-55-56_frame_Laser1.jpg')
-
-
-
 
 
 files = os.listdir(imagesDir)
@@ -29,8 +28,9 @@ while i < len(filesSorted):
 
     # Draw areas of interest on the image
     #                   tl              tr          bl             br
-    laserArea = [[600, 380], [190, 430], [420, 1400], [1800, 1350]]
-    points = np.array([[600, 380], [190, 430], [420, 1400], [1800, 1350]], np.int32)
+    # laserArea = [[600, 380], [190, 430], [420, 1400], [1800, 1350]]
+    laserArea = laser1_areas['laser1']['areaCoords']
+    points = np.array(laserArea, np.int32)
     points = points.reshape((-1, 1, 2))
     cv2.polylines(image, [points], isClosed=True, color=(0, 255, 0), thickness=5)
 

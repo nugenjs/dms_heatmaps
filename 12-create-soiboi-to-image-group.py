@@ -123,7 +123,7 @@ async def process():
 
                 soiLocations.append(linePercentageFromStart)
 
-        # don't create if already exists
+        # don't create if already exists if in db already.
         # imageGroup_laser1 = {
         #     'imageGroup': imageGroup,
         #     'areas': [
@@ -193,3 +193,8 @@ async def process():
 if __name__ == '__main__':
     import asyncio
     asyncio.run(process())
+
+
+# Wrap up notes
+# creates an empty object and doesn't fetch if existing from db
+# is limited to 20 images, can change
