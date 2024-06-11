@@ -27,10 +27,10 @@ async def process():
 
     # Laser1 Specific
 
-    laserArea = laser1_areas['laser1']['areaCoords']
-    nppoints = np.array(laserArea, np.int32)
-    points = nppoints.reshape((-1, 1, 2))
-    cv2.polylines(image, [points], isClosed=True, color=(0, 255, 0), thickness=5)
+    # laserArea = laser1_areas['laser1']['areaCoords']
+    # nppoints = np.array(laserArea, np.int32)
+    # points = nppoints.reshape((-1, 1, 2))
+    # cv2.polylines(image, [points], isClosed=True, color=(0, 255, 0), thickness=5)
 
 
     npLaser1OverviewCoords = np.array(laser1_areas['laser1']['overviewCoords'], np.int32)
@@ -39,7 +39,9 @@ async def process():
     cv2.arrowedLine(image, soiStart, soiEnd, (255, 0, 0),  5, cv2.FILLED, 0, 0.03)
 
 
-    laser1ProcessedRes = await db.select(f'Laser1Processed:nn2su7dypvwi9nuuvlo1')
+    # laser1ProcessedRes = await db.select(f'Laser1Processed:p9ulwr3vh9p5jgh9q5jy')
+    laser1ProcessedRes = await db.query(f'SELECT * FROM Laser1Processed WHERE imageGroup = "Laser1"')
+    laser1ProcessedRes = laser1ProcessedRes[0]['result'][0]
 
     pprint(laser1ProcessedRes)
 
@@ -85,80 +87,7 @@ async def process():
         print('soiLocationX', soiLocationX)
         print('soiLocationY', soiLocationY)
 
-        cv2.circle(image, (int(soiLocationX), int(soiLocationY)), 10 * count, (100, 100, 255), -1)
-
-
-
-
-    # for soiLocation in soiLocations:
-    #     print('soiLocation:', soiLocation)
-
-    #     # filter the location here
-    #     # print(round(0, -1))
-    #     soilLocation_filtered = round(soiLocation, -1)
-
-    #     # calculate the cartesian coordinates of the soiLocation
-    #     soiLocationX = npLaser1OverviewCoords[0][0] + (float(soilLocation_filtered) / 100) * (npLaser1OverviewCoords[1][0] - npLaser1OverviewCoords[0][0])
-    #     soiLocationY = npLaser1OverviewCoords[0][1] + (float(soilLocation_filtered) / 100) * (npLaser1OverviewCoords[1][1] - npLaser1OverviewCoords[0][1])
-        
-    #     # print('npLaser1OverviewCoords[0][0]', npLaser1OverviewCoords[0][0])
-    #     # print('npLaser1OverviewCoords[0][1]', npLaser1OverviewCoords[0][1])
-
-    #     print('soiLocationX', soiLocationX)
-    #     print('soiLocationY', soiLocationY)
-
-    #     # soiLocationX_filtered = round(soiLocationX, -2)
-    #     # soiLocationY_filtered = round(soiLocationY, -2)
-
-
-
-    #     cv2.circle(image, (int(soiLocationX), int(soiLocationY)), 10, (100, 100, 255), -1)
-
-    # ################################################ end of test
-
-
-    # 0 10 15 20 85 90 100
-
-
-
-    # for timestamp, processed in laser1Processed.items():
-    #     print('timestamp:', timestamp)
-    #     print('processed:', processed)
-
-    #     for soiLocation in processed['soiLocations']:
-    #         print('soiLocation:', soiLocation)
-
-    #         # calculate the cartesian coordinates of the soiLocation
-    #         soiLocationX = npLaser1OverviewCoords[0][0] + (float(soiLocation) / 100) * (npLaser1OverviewCoords[1][0] - npLaser1OverviewCoords[0][0])
-    #         soiLocationY = npLaser1OverviewCoords[0][1] + (float(soiLocation) / 100) * (npLaser1OverviewCoords[1][1] - npLaser1OverviewCoords[0][1])
-            
-    #         # print('npLaser1OverviewCoords[0][0]', npLaser1OverviewCoords[0][0])
-    #         # print('npLaser1OverviewCoords[0][1]', npLaser1OverviewCoords[0][1])
-
-    #         print('soiLocationX', soiLocationX)
-    #         print('soiLocationY', soiLocationY)
-
-    #         print(type(soiLocationX))
-
-    #         cv2.circle(image, (int(soiLocationX), int(soiLocationY)), 10, (100, 100, 255), -1)
-    #         break
-    #     break
-
-
-
-    
-
-                
-
-
-
-
-
-
-
-
-
-
+        cv2.circle(image, (int(soiLocationX), int(soiLocationY)), 10 * count, (50, 150, 255), -1)
 
 
 

@@ -5,6 +5,7 @@ laser1_areas = {
   'laser1': {
         'areaName': 'laser1',
         'areaCoords': [[600, 380], [190, 430], [420, 1400], [1800, 1350]],
-        'overviewCoords': [[100, 150], [600, 600]]
+        'overviewCoords': [[1600, 600], [1600, 800]]
+        # 'overviewCoords': [[1600, 300], [1600, 600]]
     } 
 }

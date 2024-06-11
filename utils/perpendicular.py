@@ -1,10 +1,10 @@
 # This calculates the perpendicular line of a given line and a point
 def calcPerpendicularSlopeLineIntercept(lineM, lineB, pointX, pointY):
   # the perpendicular slope is the negative reciprocal of original m
-  mPerpendicular = -1 / lineM
-  bPerpendicular = 0 # as unknown at this time
-  print('mPerpendicular:', mPerpendicular)
-  print('bPerpendicular:', bPerpendicular)
+  # mPerpendicular = -1 / lineM
+  # bPerpendicular = 0 # as unknown at this time
+  # print('mPerpendicular:', mPerpendicular)
+  # print('bPerpendicular:', bPerpendicular)
 
 
   # This is the formula for the perpendicular line
@@ -30,14 +30,14 @@ def calcPerpendicularSlopeLineIntercept(lineM, lineB, pointX, pointY):
   # the perpendicular slope is the negative reciprocal of original m
   secondm = -(1/lineM)
   secondb = pointY - (secondm*pointX)
-  print('secondm', secondm)
-  print('secondb', secondb)
+  # print('secondm', secondm)
+  # print('secondb', secondb)
 
   interceptX = (secondb - lineB) / (lineM - secondm)
   interceptY = secondm * interceptX + secondb
 
-  print('interceptX', interceptX)
-  print('interceptY', interceptY)
+  # print('interceptX', interceptX)
+  # print('interceptY', interceptY)
 
   intInterceptX = int(interceptX)
   intInterceptY = int(interceptY)
