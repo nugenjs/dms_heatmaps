@@ -129,6 +129,7 @@ async def process():
 
                 # for each area of interest
                 for aoi_key, aoi_metadata in areas_of_interest.items():
+                    print('aoi_key:', aoi_key)
                     aoi_coords = aoi_metadata['aoi_coords']
                     aoi_coords_np = np.array(aoi_coords, np.int32)
                     contour = aoi_coords_np.reshape((-1, 1, 2))
@@ -159,6 +160,22 @@ async def process():
                         cv2.line(image, interceptDot, [bbX, bbY], (255, 0, 0), 5)
 
 
+                        # # # calculate the line of interest (loi) from the area_coords
+                        # # # draw a line from the center of the top line to the center of the bottom line
+                        # # lineStartX = int((aoi_coords[0][0]+aoi_coords[1][0]) / 2)
+                        # # lineStartY = int((aoi_coords[0][1]+aoi_coords[1][1]) / 2)
+                        # # lineEndX = int((aoi_coords[2][0]+aoi_coords[3][0]) / 2)
+                        # # lineEndY = int((aoi_coords[2][1]+aoi_coords[3][1]) / 2) 
+
+                        # # save to an object to store in db
+                        # aoi_metadata['loi_coords'] = {
+                        #     'start': (lineStartX, lineStartY),
+                        #     'end': (lineEndX, lineEndY)
+                        # }
+                        (lineStartX, lineStartY) = aoi_metadata['loi_coords']['start']
+                        (lineEndX, lineEndY) = aoi_metadata['loi_coords']['end']
+
+
                         # calculate percentage from beginning to end of Section Of Interest
                         intInterceptX = int(interceptX)
                         intInterceptY = int(interceptY)
@@ -181,8 +198,8 @@ async def process():
                         break
 
 
-            # if is_person_inside_aoi:
-            if False:
+            if found_person_in_any_aoi:
+            # if False:
                 # iterate through each camera and add Line of Interest and slope intercept form to the metadata
                 for aoi_key, aoi_metadata in areas_of_interest.items():
                     aoi_coords = aoi_metadata['aoi_coords']
@@ -237,10 +254,11 @@ async def process():
             else:
                 i = i + 1
 
-    # camera_metadata
-    res = await db.update(f'{dbTable}:{camera}', camera_metadata)
-    # if res['status'] == 'success':
-    #     print('camera_metadata updated')
+        # camera_metadata
+        res = await db.update(f'{dbTable}:{camera}', camera_metadata)
+        # if res['status'] == 'success':
+        #     print('camera_metadata updated')
+
 
     await db.close()
 

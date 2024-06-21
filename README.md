@@ -27,6 +27,25 @@
 - calculates perpendicular to SOI
 - normalizes the intercept to the SOI to a 1D array
 
+### 09-15-set-area-coords-for-each-camera.py
+- calculates perpendicular to SOI on all images in Camera group
+- testing db select, update, create, query
+- saving perpendicular SOI results to db with hardcoded SOI
+- allow mouse events to allow modifications of SOI
+
+### 16-OLD-set-multi-area-coords-for-each-camera.py
+- adf
+
+### 16-set-multi-area-coords-for-each-camera.py
+- adf
+
+### 17-process-camera-with-area-coords.py
+- adf
+
+### 18-set-loi-coords-for-overview.py
+- adf
+
+
 
 # Others
 Install SurrealDB  
